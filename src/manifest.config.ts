@@ -10,6 +10,16 @@ const [major, minor, patch, label = "0"] = version
 	.split(/[.-]/);
 
 export default defineManifest(async (env) => ({
+	content_scripts: [
+		{
+			matches: ["https://book.douban.com/**"],
+			js: ["src/content.ts"],
+		},
+	],
+	background: {
+		service_worker: "src/background.ts",
+		type: "module",
+	},
 	manifest_version: 3,
 	action: { default_popup: "index.html" },
 	name:
