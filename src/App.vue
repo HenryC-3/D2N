@@ -1,20 +1,14 @@
 <script setup lang="ts">
-import AddBookPage from "./components/AddBookPage.vue";
-import OpenBookPage from "./components/OpenBookPage.vue";
-import ErrorPage from "./components/ErrorPage.vue";
+import { RouterView } from "vue-router";
 </script>
 
 <template>
-	<!--NOTE: popup -->
+	<!--popup -->
 	<div class="flex flex-col h-[184px] w-[300px] rounded-md">
-		<!-- Content -->
-		<div class="h-[144px] border-b-2 border-b-[#F6F6F5]">
-			<!-- <OpenBookPage></OpenBookPage> -->
-			<AddBookPage></AddBookPage>
-			<!-- <ErrorPage></ErrorPage> -->
-		</div>
+		<!-- content -->
+		<router-view class="h-[144px] border-b-2 border-b-[#F6F6F5]"></router-view>
 
-		<!--NOTE: bottom -->
+		<!-- bottom -->
 		<div class="flex h-[40px] gap-1 px-3 items-center">
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -30,6 +24,10 @@ import ErrorPage from "./components/ErrorPage.vue";
 			</svg>
 			<!-- TODO: add link to the article -->
 			<a href="" class="text-[12px] text-[#72716D]">Learn More</a>
+
+			<RouterLink to="/">home</RouterLink>
+			<RouterLink to="/open">open</RouterLink>
+			<RouterLink to="/error">error</RouterLink>
 		</div>
 	</div>
 </template>

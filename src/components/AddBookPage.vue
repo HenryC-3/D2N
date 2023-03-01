@@ -8,7 +8,10 @@
 			class="resize-none flex-1 rounded-sm bg-[#F7F7F5] text-sm border-2 p-2 focus:border-blue-300 focus:outline-none"
 		/>
 		<div class="flex gap-3 items-center">
-			<button class="rounded bg-[#4EAADC] text-sm text-white px-3 py-1">
+			<button
+				@click="saveBook"
+				class="rounded bg-[#4EAADC] text-sm text-white px-3 py-1"
+			>
 				<div>Save Book</div>
 			</button>
 			<span class="text-[#B5B4B3]">Enter</span>
@@ -17,7 +20,14 @@
 </template>
 
 <script setup lang="ts">
-const bookTitle = "多肉饲养指南";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const bookTitle = "";
+const saveBook = () => {
+	router.push("/open");
+};
 </script>
 
 <style scoped></style>
