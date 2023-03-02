@@ -10,6 +10,7 @@ const [major, minor, patch, label = "0"] = version
 	.split(/[.-]/);
 
 export default defineManifest(async (env) => ({
+	host_permissions: ["https://api.notion.com/v1/*"],
 	content_scripts: [
 		{
 			matches: ["https://book.douban.com/**"],
