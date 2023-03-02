@@ -9,11 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "blob-util": "^2.0.2",
+    "cheerio": "1.0.0-rc.12",
     "vue": "^3.2.45",
     "vue-router": "4"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "2.0.0-beta.13",
+    "@types/chrome": "^0.0.218",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@vitejs/plugin-vue": "^4.0.0",
