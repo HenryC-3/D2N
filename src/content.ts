@@ -48,7 +48,7 @@ async function getBookInfo() {
 		if (coverURL) {
 			const res = await fetch(coverURL);
 			const blob = await res.blob();
-			const blobStr = await blobToDataURL(blob);
+			const blobStr = await blobToDataURL(blob); // see [javascript - Passing FormData/File Object from content script to background script in chrome extension with Manifest V3 - Stack Overflow](https://stackoverflow.com/questions/68735839/passing-formdata-file-object-from-content-script-to-background-script-in-chrome)
 
 			// see if I really get the image form the server
 			// const imageUrl = URL.createObjectURL(blob);
