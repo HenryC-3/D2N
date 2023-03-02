@@ -14,7 +14,7 @@ getBookInfo()
 async function getBookInfo() {
 	const page = document.documentElement.outerHTML;
 	const $ = cheerio.load(page);
-	const coverBlobStr = await getBookCoverBlobStr();
+	// const coverBlobStr = await getBookCoverBlobStr();
 	const book: Book = {
 		title: $("h1 span").text(),
 		author: $("#info span:contains('作者')").next().text(),
@@ -31,7 +31,8 @@ async function getBookInfo() {
 		ISBN: parseInt(getInfoByAnchor($("#info span:contains('ISBN')"))),
 		rating: parseFloat($(".rating_num").text().trim()),
 		ratingCount: parseInt($(".rating_sum a").text().trim()),
-		cover: coverBlobStr,
+		// cover: coverBlobStr,
+		cover: String($("#mainpic a.nbg").attr("href")),
 	};
 
 	return book;
@@ -45,6 +46,7 @@ async function getBookInfo() {
 		return "";
 	}
 
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
 	async function getBookCoverBlobStr() {
 		const coverURL = $("#mainpic a.nbg").attr("href");
 		if (coverURL) {
