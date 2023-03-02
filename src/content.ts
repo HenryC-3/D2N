@@ -21,7 +21,9 @@ async function getBookInfo() {
 		publisher: $("#info span:contains('出版社')").next().text(),
 		producer: $("#info span:contains('出品方')").next().text(),
 		subtitle: getInfoByAnchor($("#info span:contains('副标题')")),
-		publishDate: getInfoByAnchor($("#info span:contains('出版年')")),
+		publishDate: new Date(
+			Date.parse(getInfoByAnchor($("#info span:contains('出版年')")))
+		).toISOString(),
 		pageCount: parseInt(getInfoByAnchor($("#info span:contains('页数')"))),
 		price: parseFloat(
 			getInfoByAnchor($("#info span:contains('定价')")).replace("元", "")
