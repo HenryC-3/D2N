@@ -16,8 +16,10 @@
 </template>
 
 <script setup lang="ts">
-// TODO: get data from route parameters
-const status = "Error Code: 404";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+const status = `${route.query.data}`;
 // TODO: finish saveBook
 const saveBook = () => {
 	console.log("book saved");

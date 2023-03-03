@@ -32,8 +32,12 @@ const saveBook = () => {
 	chrome.runtime.sendMessage({ triggered: true }, (res: BackgroundRes) => {
 		if (res.success) {
 			router.push("/open");
-		} else {
-			router.push("/error");
+		}
+		if (res.error) {
+			router.push({
+				path: "/error",
+				query: { data: res.error.name },
+			});
 		}
 	});
 };

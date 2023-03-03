@@ -1,3 +1,5 @@
+import { NotionClientError } from "@notionhq/client";
+
 export interface Book {
 	title: string;
 	author: string;
@@ -15,5 +17,5 @@ export interface Book {
 
 export interface BackgroundRes {
 	success: boolean;
-	error?: Error;
+	error?: NotionClientError;
 }
