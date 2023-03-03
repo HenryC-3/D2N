@@ -12,3 +12,8 @@ export interface Book {
 	ratingCount: number; // 评价人数
 	cover: string;
 }
+
+export interface BackgroundRes {
+	success: boolean;
+	error?: Error;
+}

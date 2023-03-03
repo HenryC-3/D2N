@@ -24,10 +24,6 @@ import { RouterView } from "vue-router";
 			</svg>
 			<!-- TODO: add link to the article -->
 			<a href="" class="text-[12px] text-[#72716D]">Learn More</a>
-
-			<RouterLink to="/">home</RouterLink>
-			<RouterLink to="/open">open</RouterLink>
-			<RouterLink to="/error">error</RouterLink>
 		</div>
 	</div>
 </template>

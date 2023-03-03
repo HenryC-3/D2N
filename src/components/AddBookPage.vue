@@ -21,12 +21,21 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import type { BackgroundRes } from "../types";
 
 const router = useRouter();
 
 const bookTitle = "";
 const saveBook = () => {
-	router.push("/open");
+	// TODO: fix eslint warning
+	// eslint-disable-next-line no-undef
+	chrome.runtime.sendMessage({ triggered: true }, (res: BackgroundRes) => {
+		if (res.success) {
+			router.push("/open");
+		} else {
+			router.push("/error");
+		}
+	});
 };
 </script>
 
