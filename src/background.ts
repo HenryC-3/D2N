@@ -1,5 +1,5 @@
 import { BackgroundRes, Book } from "./types";
-import { Client } from "@notionhq/client";
+import { Client, NotionClientError } from "@notionhq/client";
 
 const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
 	.env;
@@ -14,36 +14,17 @@ chrome.runtime.onMessage.addListener(
 		if (message.triggered) {
 			addBook(book as Book)
 				.then((res) => {
-					const result = checkRequestStatus(res as unknown as NotionResponse);
-					if (result) {
+					if (res.object === "page") {
 						response({ success: true });
 					}
 				})
-				.catch((error) => response({ success: false, error }));
+				.catch((error) =>
+					response({ success: false, error: error as NotionClientError })
+				);
 		}
 		return true;
 	}
 );
-
-type NotionResponse =
-	| { object?: "page" }
-	| { object?: "error"; code: string; message: string }
-	| null;
-
-function checkRequestStatus(notionResponse: NotionResponse) {
-	if (!notionResponse) {
-		throw new Error("400");
-	}
-	if (notionResponse && notionResponse.object === "error") {
-		throw new Error(notionResponse.code);
-	}
-	if (notionResponse && notionResponse.object === "page") {
-		return notionResponse;
-	}
-	if (notionResponse && notionResponse.object === undefined) {
-		throw new Error("Internal"); // error related to extension itself
-	}
-}
 
 async function addBook(book: Book) {
 	const response = await notion.pages.create({
