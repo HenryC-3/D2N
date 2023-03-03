@@ -1,17 +1,33 @@
-import { Book } from "./types";
-// import { dataURLToBlob } from "blob-util";
-import { Client } from "@notionhq/client";
+import { error } from "console";
+import { BackgroundRes, Book } from "./types";
+import { Client, NotionClientError } from "@notionhq/client";
 
 const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
 	.env;
 const notion = new Client({ auth: token });
 
-chrome.runtime.onMessage.addListener((message: { book: Book }) => {
-	if (message) {
-		// const cover = dataURLToBlob(message.book.cover);
-		addBook(message.book);
+// TODO: 移除该变量
+let book = {};
+chrome.runtime.onMessage.addListener(
+	(message, _, response: (msg: BackgroundRes) => void) => {
+		console.log("message", message);
+		if (message.book) {
+			book = message.book;
+		}
+		if (message.triggered) {
+			addBook(book as Book)
+				.then(() => {
+					// TODO: 测试是否能跳转到错误页
+					throw error;
+					response({ success: true });
+				})
+				.catch((error) =>
+					response({ success: false, error: error as NotionClientError })
+				);
+		}
+		return true;
 	}
-});
+);
 
 async function addBook(book: Book) {
 	try {

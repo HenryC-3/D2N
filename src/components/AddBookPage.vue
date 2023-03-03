@@ -21,12 +21,17 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
+import type { BackgroundRes } from "../types";
 
 const router = useRouter();
 
 const bookTitle = "";
 const saveBook = () => {
-	router.push("/open");
+	// TODO: 修复此处的 eslint 警告
+	// eslint-disable-next-line no-undef
+	chrome.runtime.sendMessage({ triggered: true }, (res: BackgroundRes) => {
+		res.success ? router.push("/open") : router.push("/error");
+	});
 };
 </script>
 
