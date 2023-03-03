@@ -1,4 +1,5 @@
 import { NotionClientError } from "@notionhq/client";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export interface Book {
 	title: string;
@@ -15,7 +16,8 @@ export interface Book {
 	cover: string;
 }
 
-export interface BackgroundRes {
+export interface BackgroundResponse {
 	success: boolean;
+	data?: PageObjectResponse;
 	error?: NotionClientError;
 }

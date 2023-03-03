@@ -9,7 +9,7 @@
 		/>
 		<div class="flex gap-3 items-center">
 			<button
-				@click="saveBook"
+				@click="handleClick"
 				class="rounded bg-[#4EAADC] text-sm text-white px-3 py-1"
 			>
 				<div>Save Book</div>
@@ -21,25 +21,20 @@
 
 <script setup lang="ts">
 import { useRouter } from "vue-router";
-import type { BackgroundRes } from "../types";
+import { addBookToNotion } from "../utils/index";
 
 const router = useRouter();
 
 const bookTitle = "";
-const saveBook = () => {
-	// TODO: fix eslint warning
-	// eslint-disable-next-line no-undef
-	chrome.runtime.sendMessage({ triggered: true }, (res: BackgroundRes) => {
-		if (res.success) {
-			router.push("/open");
+const handleClick = () => {
+	addBookToNotion(
+		(res) => {
+			router.push({ path: "/open", query: { data: res.url } });
+		},
+		(err) => {
+			router.push({ path: "/error", query: { data: err.name } });
 		}
-		if (res.error) {
-			router.push({
-				path: "/error",
-				query: { data: res.error.name },
-			});
-		}
-	});
+	);
 };
 </script>
 
