@@ -10,7 +10,7 @@
 		<loading-button
 			@click="handleClick"
 			buttonText="Save Book"
-			shortcutText="Enter"
+			shortcutText="Ctrl + Enter"
 			:loading="loadingStatus"
 		></loading-button>
 	</div>
