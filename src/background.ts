@@ -6,7 +6,7 @@ const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
 	.env;
 const notion = new Client({ auth: token });
 
-let book = {};
+let book = {} as Book;
 chrome.runtime.onMessage.addListener(
 	(
 		message: InternalMessage,
@@ -15,6 +15,9 @@ chrome.runtime.onMessage.addListener(
 	) => {
 		if (message.book) {
 			book = message.book;
+		}
+		if (message.note) {
+			book.note = message.note;
 		}
 		if (message.triggered) {
 			addBook(book as Book)
@@ -106,6 +109,15 @@ async function addBook(book: Book) {
 						name: `${book.title}-${book.ISBN}`,
 						external: {
 							url: book.cover,
+						},
+					},
+				],
+			},
+			Note: {
+				rich_text: [
+					{
+						text: {
+							content: book.note ? book.note : "",
 						},
 					},
 				],

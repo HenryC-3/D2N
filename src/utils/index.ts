@@ -21,3 +21,7 @@ export function addBookToNotion(
 		}
 	);
 }
+
+export function changeNote(note: string) {
+	chrome.runtime.sendMessage({ note });
+}

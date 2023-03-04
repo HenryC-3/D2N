@@ -14,6 +14,7 @@ export interface Book {
 	rating: number; // 豆瓣星
 	ratingCount: number; // 评价人数
 	cover: string;
+	note?: string; // quick thoughts about the book
 }
 
 export interface BackgroundResponse {
