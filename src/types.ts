@@ -21,3 +21,12 @@ export interface BackgroundResponse {
 	data?: PageObjectResponse;
 	error?: NotionClientError;
 }
+
+export interface InternalMessage {
+	/* whether the content script have got the book information form Douban */
+	book?: Book;
+	/* whether the user have added a note to the book  */
+	note?: string;
+	/* whether the user have triggered the save button */
+	triggered?: boolean;
+}

@@ -1,5 +1,5 @@
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { BackgroundResponse, Book } from "./types";
+import { BackgroundResponse, Book, InternalMessage } from "./types";
 import { Client, NotionClientError } from "@notionhq/client";
 
 const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
@@ -8,7 +8,11 @@ const notion = new Client({ auth: token });
 
 let book = {};
 chrome.runtime.onMessage.addListener(
-	(message, _, response: (msg: BackgroundResponse) => void) => {
+	(
+		message: InternalMessage,
+		_,
+		response: (msg: BackgroundResponse) => void
+	) => {
 		if (message.book) {
 			book = message.book;
 		}

@@ -1,11 +1,11 @@
-import { Book } from "./types";
+import { Book, InternalMessage } from "./types";
 import * as cheerio from "cheerio";
 import type { Cheerio } from "cheerio";
 import { blobToDataURL } from "blob-util";
 
 getBookInfo()
 	.then((book) => {
-		chrome.runtime.sendMessage({ book });
+		chrome.runtime.sendMessage<InternalMessage>({ book });
 	})
 	.catch((error) => {
 		console.log(error);
