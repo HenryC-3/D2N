@@ -1,6 +1,7 @@
 <template>
 	<div class="flex h-[100%] flex-col box-border p-3 gap-3">
 		<textarea
+			ref="textareaRef"
 			v-model="bookNote"
 			type="text"
 			rows="3"
@@ -20,11 +21,17 @@
 import LoadingButton from "./LoadingButton.vue";
 import { useRouter } from "vue-router";
 import { addBookToNotion, changeNote as addNote } from "../utils/index";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 
 const router = useRouter();
 const loadingStatus = ref<boolean>(false);
 const bookNote = ref("");
+const textareaRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+	textareaRef.value?.focus();
+});
+
 const handleClick = () => {
 	// change loading status
 	loadingStatus.value = true;
