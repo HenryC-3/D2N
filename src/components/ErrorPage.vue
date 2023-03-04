@@ -4,14 +4,11 @@
 		<div>
 			<p class="text-sm">Hmm...something's not right 🤔</p>
 		</div>
-		<div>
-			<button
-				@click="handleClick"
-				class="rounded bg-[#4EAADC] text-sm text-white px-3 py-1"
-			>
-				<div>Try Again</div>
-			</button>
-		</div>
+		<loading-button
+			@click="handleClick"
+			buttonText="Try Again"
+			:loading="loadingStatus"
+		></loading-button>
 	</div>
 </template>
 
@@ -19,10 +16,12 @@
 import { useRoute, useRouter } from "vue-router";
 import { addBookToNotion } from "../utils/index";
 import { watch, ref } from "vue";
+import LoadingButton from "./LoadingButton.vue";
 
 const router = useRouter();
 const route = useRoute();
 const code = ref(route.query.data);
+const loadingStatus = ref<boolean>(false);
 
 watch(
 	() => route.query.data,
@@ -30,13 +29,16 @@ watch(
 		code.value = newValue;
 	}
 );
+
 const handleClick = () => {
+	loadingStatus.value = true;
 	addBookToNotion(
 		(res) => {
 			router.push({ path: "/open", query: { data: res.url } });
 		},
 		(err) => {
-			router.push({ path: "/error", query: { data: err.name } });
+			loadingStatus.value = false;
+			code.value = err.name;
 		}
 	);
 };
