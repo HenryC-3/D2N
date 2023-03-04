@@ -122,6 +122,9 @@ async function addBook(book: Book) {
 					},
 				],
 			},
+			Douban: {
+				url: book.douban,
+			},
 		},
 	});
 	console.log("Success! Entry added.");

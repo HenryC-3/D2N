@@ -15,6 +15,7 @@ export interface Book {
 	ratingCount: number; // 评价人数
 	cover: string;
 	note?: string; // quick thoughts about the book
+	douban: string; // book's douban URL
 }
 
 export interface BackgroundResponse {

@@ -33,6 +33,7 @@ async function getBookInfo() {
 		ratingCount: parseInt($(".rating_sum a").text().trim()),
 		// cover: coverBlobStr,
 		cover: String($("#mainpic a.nbg").attr("href")),
+		douban: window.location.href,
 	};
 
 	return book;
