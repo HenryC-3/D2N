@@ -1,15 +1,16 @@
 <template>
 	<div
+		ref="buttonRef"
 		:class="{
 			'cursor-not-allowed gap-0': loading, // remove gap on loading
-			'gap-3': !loading, // add gap
+			'gap-2': !loading, // add gap
 			'gap-0': !Boolean(shortcutText), // remove gap when shortcutText is empty
 		}"
 		class="flex items-center"
 	>
 		<button
 			:class="{ 'pointer-events-none': loading }"
-			class="w-[94px] rounded bg-[#4EAADC] text-sm text-white px-3 py-1 flex justify-center items-center"
+			class="min-w-[94px] rounded bg-[#4EAADC] text-sm text-white px-3 py-1 flex justify-center items-center"
 		>
 			<div v-if="!loading">{{ buttonText }}</div>
 			<div v-if="loading">
@@ -40,18 +41,36 @@
 				</svg>
 			</div>
 		</button>
-		<span :class="{ hidden: loading }" class="text-[#B5B4B3] text-sm">{{
+		<span :class="{ hidden: loading }" class="text-[#B5B4B3] text-xs">{{
 			shortcutText
 		}}</span>
 	</div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+import { onMounted, ref } from "vue";
+
+const props = defineProps<{
 	buttonText: string;
-	shortcutText?: string;
+	shortcutText?: "Enter" | "Ctrl + Enter";
 	loading?: boolean;
 }>();
+const buttonRef = ref<HTMLDivElement | null>(null);
+onMounted(() => {
+	document.addEventListener("keyup", (e) => {
+		if (e.code === "Enter" && props.shortcutText === "Enter") {
+			buttonRef.value?.click();
+		}
+
+		if (
+			e.ctrlKey &&
+			e.code === "Enter" &&
+			props.shortcutText === "Ctrl + Enter"
+		) {
+			buttonRef.value?.click();
+		}
+	});
+});
 </script>
 
 <style scoped></style>
