@@ -1,18 +1,22 @@
 <template>
 	<div
-		:class="{ 'cursor-not-allowed': loading }"
-		class="flex gap-3 items-center"
+		:class="{
+			'cursor-not-allowed gap-0': loading, // remove gap on loading
+			'gap-3': !loading, // add gap
+			'gap-0': !Boolean(shortcutText), // remove gap when shortcutText is empty
+		}"
+		class="flex items-center"
 	>
 		<button
 			:class="{ 'pointer-events-none': loading }"
-			class="rounded bg-[#4EAADC] text-sm text-white px-3 py-1"
+			class="w-[94px] rounded bg-[#4EAADC] text-sm text-white px-3 py-1 flex justify-center items-center"
 		>
 			<div v-if="!loading">{{ buttonText }}</div>
 			<div v-if="loading">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					width="24"
-					height="24"
+					width="20"
+					height="20"
 					viewBox="0 0 24 24"
 				>
 					<path
