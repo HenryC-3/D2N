@@ -8,7 +8,6 @@ specifiers:
   '@typescript-eslint/parser': ^5.54.0
   '@vitejs/plugin-vue': ^4.0.0
   autoprefixer: ^10.4.13
-  blob-util: ^2.0.2
   cheerio: 1.0.0-rc.12
   eslint: ^8.35.0
   eslint-config-google: ^0.14.0
@@ -26,7 +25,6 @@ specifiers:
 
 dependencies:
   '@notionhq/client': 2.2.3
-  blob-util: 2.0.2
   cheerio: 1.0.0-rc.12
   vue: 3.2.47
   vue-router: 4.1.6_vue@3.2.47
@@ -785,10 +783,6 @@ packages:
     resolution: {integrity: sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA==}
     engines: {node: '>=8'}
     dev: true
-
-  /blob-util/2.0.2:
-    resolution: {integrity: sha512-T7JQa+zsXXEa6/8ZhHcQEW1UFfVM49Ts65uBkFL6fz2QmrElqmbajIDJvuA0tEhRe5eIjpV9ZF+0RfZR9voJFQ==}
-    dev: false
 
   /boolbase/1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
