@@ -10,7 +10,7 @@ export function addBookToNotion(
 	failedAction?: FailedAction
 ) {
 	chrome.runtime.sendMessage<OneTimeMessage, BackgroundResponse>(
-		{ triggered: true },
+		{ saveBookToNotion: true },
 		(res) => {
 			if (res.success && res.data && successAction) {
 				successAction(res.data);
@@ -22,6 +22,6 @@ export function addBookToNotion(
 	);
 }
 
-export function changeNote(note: string) {
-	chrome.runtime.sendMessage({ note });
+export function changeNote(note: OneTimeMessage["storeNote"]) {
+	chrome.runtime.sendMessage({ storeNote: note } as OneTimeMessage);
 }

@@ -4,13 +4,16 @@ import { store } from "./store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export const actions: ActionForOneTimeMessages = {
-	book: function handleStoreBook(messageValue) {
+	storeBook: function handleStoreBook(messageValue) {
 		store.book = messageValue as BackgroundStore["book"];
 	},
-	note: function handleAddNote(messageValue) {
+	storeNote: function handleStoreNote(messageValue) {
 		store.userNote = messageValue as BackgroundStore["userNote"];
 	},
-	triggered: async function handleSaveBook(messageValue, backgroundResponse) {
+	saveBookToNotion: async function handleSaveBook(
+		messageValue,
+		backgroundResponse
+	) {
 		addBook(store)
 			.then((res) => {
 				if (res && res.object === "page") {

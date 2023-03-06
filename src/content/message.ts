@@ -5,7 +5,7 @@ import type { Cheerio } from "cheerio";
 export function sendBookToBackground() {
 	getBookInfo()
 		.then((book) => {
-			chrome.runtime.sendMessage<OneTimeMessage>({ book });
+			chrome.runtime.sendMessage<OneTimeMessage>({ storeBook: book });
 		})
 		.catch((error) => {
 			console.log(error);

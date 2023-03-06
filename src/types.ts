@@ -25,10 +25,16 @@ export interface BackgroundResponse {
 }
 
 export interface OneTimeMessage {
-	/* whether the content script have got the book information form Douban */
-	book?: Book;
-	/* whether the user have added a note to the book  */
-	note?: string;
-	/* whether the user have triggered the save button */
-	triggered?: boolean;
+	/* sender: content script
+	 * receiver: background script
+	 * notify background script to store the book information to background store  */
+	storeBook?: Book;
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script to store the user notes to background store  */
+	storeNote?: string;
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script send the book related information to notion */
+	saveBookToNotion?: boolean;
 }
