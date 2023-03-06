@@ -19,12 +19,12 @@ export interface Book {
 }
 
 export interface BackgroundResponse {
-	success: boolean;
+	success?: boolean;
 	data?: PageObjectResponse;
 	error?: NotionClientError;
 }
 
-export interface InternalMessage {
+export interface OneTimeMessage {
 	/* whether the content script have got the book information form Douban */
 	book?: Book;
 	/* whether the user have added a note to the book  */

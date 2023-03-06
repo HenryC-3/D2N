@@ -7,5 +7,5 @@
 	],
 	// https://github.com/vuejs/language-tools/issues/1815#issuecomment-1282279152
 	"volar.vueserver.noProjectReferences": true,
-	"cSpell.words": ["crxjs", "douban"]
+	"cSpell.words": ["crxjs", "douban", "notsupport"]
 }

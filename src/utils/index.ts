@@ -1,5 +1,5 @@
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import type { BackgroundResponse, InternalMessage } from "../types";
+import type { BackgroundResponse, OneTimeMessage } from "../types";
 import { NotionClientError } from "@notionhq/client";
 
 type SuccessAction = (input: PageObjectResponse) => void;
@@ -9,7 +9,7 @@ export function addBookToNotion(
 	successAction?: SuccessAction,
 	failedAction?: FailedAction
 ) {
-	chrome.runtime.sendMessage<InternalMessage, BackgroundResponse>(
+	chrome.runtime.sendMessage<OneTimeMessage, BackgroundResponse>(
 		{ triggered: true },
 		(res) => {
 			if (res.success && res.data && successAction) {
