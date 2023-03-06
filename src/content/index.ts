@@ -1,4 +1,4 @@
-import { Book, OneTimeMessage } from "./types";
+import { Book, OneTimeMessage } from "../types";
 import * as cheerio from "cheerio";
 import type { Cheerio } from "cheerio";
 import { blobToDataURL } from "blob-util";

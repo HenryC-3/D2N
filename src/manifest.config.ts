@@ -14,11 +14,11 @@ export default defineManifest(async (env) => ({
 	content_scripts: [
 		{
 			matches: ["https://book.douban.com/**"],
-			js: ["src/content.ts"],
+			js: ["src/content/index.ts"],
 		},
 	],
 	background: {
-		service_worker: "src/background.ts",
+		service_worker: "src/background/index.ts",
 		type: "module",
 	},
 	manifest_version: 3,
