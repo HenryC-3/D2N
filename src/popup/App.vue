@@ -4,9 +4,11 @@ import { RouterView } from "vue-router";
 
 <template>
 	<!--popup -->
-	<div class="flex flex-col h-[184px] w-[300px] rounded-md">
+	<div class="flex flex-col w-[300px] rounded-md">
 		<!-- content -->
-		<router-view class="h-[144px] border-b-2 border-b-[#F6F6F5]"></router-view>
+		<router-view
+			class="min-h-[144px] border-b-2 border-b-[#F6F6F5]"
+		></router-view>
 
 		<!-- bottom -->
 		<div class="flex h-[40px] gap-1 px-3 items-center">

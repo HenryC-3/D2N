@@ -41,20 +41,32 @@
 				</svg>
 			</div>
 		</button>
-		<span :class="{ hidden: loading }" class="text-[#B5B4B3] text-xs">{{
+		<span :class="{ hidden: invisible }" class="text-[#B5B4B3] text-xs">{{
 			shortcutText
 		}}</span>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
 const props = defineProps<{
 	buttonText: string;
 	shortcutText?: "Enter" | "Ctrl + Enter";
+	shortcutVisibility?: boolean;
 	loading?: boolean;
 }>();
+
+const invisible = computed(() => {
+	if (props.shortcutVisibility && props.loading) {
+		return true;
+	}
+	if (props.shortcutVisibility && !props.loading) {
+		return false;
+	}
+	return true;
+});
+
 const buttonRef = ref<HTMLDivElement | null>(null);
 onMounted(() => {
 	document.addEventListener("keyup", (e) => {
