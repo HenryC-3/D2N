@@ -1,5 +1,5 @@
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { BackgroundResponse, Book, OneTimeMessage } from "./types";
+import { BackgroundResponse, Book, OneTimeMessage } from "../types";
 import { Client, NotionClientError } from "@notionhq/client";
 
 const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
