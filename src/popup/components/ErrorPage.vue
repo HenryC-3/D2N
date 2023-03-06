@@ -14,7 +14,7 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { addBookToNotion } from "../utils/index";
+import { addBookToNotion, getErrorMessage } from "../utils/index";
 import { watch, ref } from "vue";
 import LoadingButton from "./LoadingButton.vue";
 
@@ -38,7 +38,7 @@ const handleClick = () => {
 		},
 		(err) => {
 			loadingStatus.value = false;
-			code.value = err.name;
+			code.value = getErrorMessage(err).name;
 		}
 	);
 };

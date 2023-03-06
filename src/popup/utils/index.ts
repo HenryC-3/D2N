@@ -28,3 +28,13 @@ export function addBookToNotion(
 export function changeNote(note: OneTimeMessage["storeNote"]) {
 	chrome.runtime.sendMessage({ storeNote: note } as OneTimeMessage);
 }
+
+export function getErrorMessage(error: ExtensionError) {
+	return {
+		name: error.name,
+		message:
+			error.name === "ContentScriptError"
+				? error.message
+				: "Sorry, D2N fails to save the book to Notion at this time. Please try again later or click learn more if the issue persists.",
+	};
+}

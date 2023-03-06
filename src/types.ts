@@ -41,7 +41,7 @@ export interface OneTimeMessage {
 
 export type ExtensionError =
 	| {
-			name: string;
-			message: string;
+			name: "ContentScriptError";
+			message: "Sorry, D2N was unable to retrieve information about the book from this page. Please make sure you are on a valid book page and try again";
 	  }
 	| NotionClientError;

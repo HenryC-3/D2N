@@ -42,7 +42,7 @@ export async function addBook(store: BackgroundStore) {
 		throw {
 			name: "ContentScriptError",
 			message:
-				"Didn't get the book information, this may caused by the content script or background script",
+				"Sorry, D2N was unable to retrieve information about the book from this page. Please make sure you are on a valid book page and try again",
 		} as ExtensionError;
 	}
 	if (store.book) {
