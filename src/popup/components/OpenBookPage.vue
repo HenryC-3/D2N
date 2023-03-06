@@ -1,14 +1,20 @@
 <template>
-	<div
-		class="relative flex h-[100%] flex-col box-border p-3 justify-center items-center"
-	>
-		<loading-button
+	<div class="flex flex-col gap-3 items-center p-3">
+		<!-- title -->
+		<h1 class="text-blue-400 font-semibold">Success</h1>
+		<!-- message -->
+		<div
+			class="w-[100%] text-sm bg-[#F7F7F5] border-2 p-2 border-blue-300 rounded-sm text-center"
+		>
+			This Book is saved to Notion
+		</div>
+		<!-- button -->
+		<LoadingButton
 			@click="openInNotion"
-			buttonText="Open Notion"
-			:loading="false"
+			button-text="Open In Notion"
 			shortcut-text="Enter"
-			class="flex-col"
-		></loading-button>
+			class="pb-3 flex-col"
+		></LoadingButton>
 	</div>
 </template>
 

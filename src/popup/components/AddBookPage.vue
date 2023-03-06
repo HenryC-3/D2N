@@ -12,6 +12,7 @@
 			@click="handleClick"
 			buttonText="Save Book"
 			shortcutText="Ctrl + Enter"
+			:shortcutVisibility="true"
 			:loading="loadingStatus"
 		></loading-button>
 	</div>
@@ -44,7 +45,10 @@ const handleClick = () => {
 			router.push({ path: "/open", query: { data: res.url } });
 		},
 		(err) => {
-			router.push({ path: "/error", query: { data: err.name } });
+			router.push({
+				path: "/error",
+				query: { data: err.name, message: err.message },
+			});
 		}
 	);
 };

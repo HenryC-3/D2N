@@ -1,14 +1,22 @@
 <template>
-	<div class="flex flex-col gap-3 h-[100%] justify-center items-center">
-		<div class="text-lg font-semibold text-red-500">{{ code }}</div>
-		<div>
-			<p class="text-sm">Hmm...something's not right 🤔</p>
+	<div class="flex flex-col gap-3 items-center p-3">
+		<!-- title -->
+		<h1 class="text-red-400 font-semibold">Error {{ errName }}</h1>
+		<!-- message -->
+		<div
+			:class="{ hidden: !errMessage }"
+			class="w-[100%] text-sm bg-[#F7F7F5] border-2 p-2 border-red-300 rounded-sm text-center"
+		>
+			{{ errMessage }}
 		</div>
-		<loading-button
+		<!-- button -->
+		<LoadingButton
 			@click="handleClick"
-			buttonText="Try Again"
+			button-text="Try Again"
+			shortcut-text="Enter"
+			:shortcutTextVisibility="false"
 			:loading="loadingStatus"
-		></loading-button>
+		></LoadingButton>
 	</div>
 </template>
 
@@ -20,27 +28,30 @@ import LoadingButton from "./LoadingButton.vue";
 
 const router = useRouter();
 const route = useRoute();
-const code = ref(route.query.data);
+const errName = ref(route.query.data);
+const errMessage = ref(route.query.message);
 const loadingStatus = ref<boolean>(false);
 
 watch(
 	() => route.query.data,
 	(newValue) => {
-		code.value = newValue;
+		errName.value = newValue;
 	}
 );
 
 const handleClick = () => {
 	loadingStatus.value = true;
-	addBookToNotion(
-		(res) => {
-			router.push({ path: "/open", query: { data: res.url } });
-		},
-		(err) => {
-			loadingStatus.value = false;
-			code.value = getErrorMessage(err).name;
-		}
-	);
+	setTimeout(() => {
+		addBookToNotion(
+			(res) => {
+				router.push({ path: "/open", query: { data: res.url } });
+			},
+			(err) => {
+				loadingStatus.value = false;
+				errName.value = getErrorMessage(err).name;
+			}
+		);
+	}, 1000);
 };
 </script>
 
