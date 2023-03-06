@@ -1,5 +1,5 @@
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import type { BackgroundResponse, OneTimeMessage } from "../types";
+import type { BackgroundResponse, OneTimeMessage } from "../../types";
 import { NotionClientError } from "@notionhq/client";
 
 type SuccessAction = (input: PageObjectResponse) => void;
