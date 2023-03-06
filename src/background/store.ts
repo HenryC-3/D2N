@@ -1,6 +1,3 @@
-import { Book } from "../types";
+import { BackgroundStore } from "./types";
 
-interface BackgroundStore {
-	book?: Book;
-}
 export const store: BackgroundStore = {};
