@@ -1,4 +1,5 @@
 import { Client, NotionClientError } from "@notionhq/client";
+import { ExtensionError } from "../types";
 import { ActionForOneTimeMessages, BackgroundStore } from "./types";
 import { store } from "./store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
@@ -42,7 +43,7 @@ export async function addBook(store: BackgroundStore) {
 			name: "ContentScriptError",
 			message:
 				"Didn't get the book information, this may caused by the content script or background script",
-		};
+		} as ExtensionError;
 	}
 	if (store.book) {
 		const response = await notion.pages.create({

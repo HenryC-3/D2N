@@ -1,9 +1,12 @@
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import type { BackgroundResponse, OneTimeMessage } from "../../types";
-import { NotionClientError } from "@notionhq/client";
+import type {
+	BackgroundResponse,
+	ExtensionError,
+	OneTimeMessage,
+} from "../../types";
 
 type SuccessAction = (input: PageObjectResponse) => void;
-type FailedAction = (input: NotionClientError) => void;
+type FailedAction = (input: ExtensionError) => void;
 
 export function addBookToNotion(
 	successAction?: SuccessAction,

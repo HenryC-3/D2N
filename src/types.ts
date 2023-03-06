@@ -38,3 +38,10 @@ export interface OneTimeMessage {
 	 * notify background script send the book related information to notion */
 	saveBookToNotion?: boolean;
 }
+
+export type ExtensionError =
+	| {
+			name: string;
+			message: string;
+	  }
+	| NotionClientError;
