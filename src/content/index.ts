@@ -1,7 +1,6 @@
 import { Book, OneTimeMessage } from "../types";
 import * as cheerio from "cheerio";
 import type { Cheerio } from "cheerio";
-import { blobToDataURL } from "blob-util";
 
 getBookInfo()
 	.then((book) => {
@@ -14,7 +13,6 @@ getBookInfo()
 async function getBookInfo() {
 	const page = document.documentElement.outerHTML;
 	const $ = cheerio.load(page);
-	// const coverBlobStr = await getBookCoverBlobStr();
 	const book: Book = {
 		title: $("h1 span").text(),
 		author: $("#info span:contains('作者')").next().text(),
@@ -31,7 +29,6 @@ async function getBookInfo() {
 		ISBN: parseInt(getInfoByAnchor($("#info span:contains('ISBN')"))),
 		rating: parseFloat($(".rating_num").text().trim()),
 		ratingCount: parseInt($(".rating_sum a").text().trim()),
-		// cover: coverBlobStr,
 		cover: String($("#mainpic a.nbg").attr("href")),
 		douban: window.location.href,
 	};
@@ -43,25 +40,6 @@ async function getBookInfo() {
 		const source = anchor[0].nextSibling as unknown as Element;
 		if (source.nodeValue) {
 			return source.nodeValue.trim();
-		}
-		return "";
-	}
-
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars, no-unused-vars
-	async function getBookCoverBlobStr() {
-		const coverURL = $("#mainpic a.nbg").attr("href");
-		if (coverURL) {
-			const res = await fetch(coverURL);
-			const blob = await res.blob();
-			const blobStr = await blobToDataURL(blob); // see [javascript - Passing FormData/File Object from content script to background script in chrome extension with Manifest V3 - Stack Overflow](https://stackoverflow.com/questions/68735839/passing-formdata-file-object-from-content-script-to-background-script-in-chrome)
-
-			// see if I really get the image form the server
-			// const imageUrl = URL.createObjectURL(blob);
-			// const img = document.createElement("img");
-			// img.src = imageUrl;
-			// document.body.appendChild(img);
-
-			return blobStr;
 		}
 		return "";
 	}

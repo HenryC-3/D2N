@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@notionhq/client": "^2.2.3",
-    "blob-util": "^2.0.2",
     "cheerio": "1.0.0-rc.12",
     "vue": "^3.2.45",
     "vue-router": "4"
