@@ -37,6 +37,10 @@ export interface OneTimeMessage {
 	 * receiver: background script
 	 * notify background script send the book related information to notion */
 	saveBookToNotion?: boolean;
+	/* sender: content script
+	 * receiver: background script
+	 * notify background script get the book URL in Notion */
+	getBookLink?: number;
 }
 
 export type ExtensionError =

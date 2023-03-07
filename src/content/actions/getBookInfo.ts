@@ -1,9 +1,8 @@
 import * as cheerio from "cheerio";
-import type { Cheerio } from "cheerio";
 import { Book } from "../../types";
+import { getInfoByAnchor } from "../utils";
 
-
-export async function getBookInfo() {
+export function getBookInfo() {
 	const page = document.documentElement.outerHTML;
 	const $ = cheerio.load(page);
 	const book: Book = {
@@ -27,17 +26,4 @@ export async function getBookInfo() {
 	};
 
 	return book;
-
-	// 	find and format target information of the book
-	function getInfoByAnchor(anchor: Cheerio<cheerio.Element>) {
-		try {
-			const source = anchor[0].nextSibling as unknown as Element;
-			if (source.nodeValue) {
-				return source.nodeValue.trim();
-			}
-		} catch (error) {
-			return "";
-		}
-		return "";
-	}
 }

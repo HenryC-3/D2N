@@ -7,6 +7,22 @@ import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 const store = createStore();
 
 export const actions: ActionForOneTimeMessages = {
+	getBookLink: async function handleLink(messageValue, backgroundResponse) {
+		const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
+			.env;
+		const notion = new Client({ auth: token });
+		const response = await notion.databases.query({
+			database_id: db,
+			filter: {
+				property: "ISBN",
+				number: { equals: messageValue as number },
+			},
+		});
+		backgroundResponse({
+			success: true,
+			data: response.results[0] as PageObjectResponse,
+		});
+	},
 	storeBook: function handleStoreBook(messageValue) {
 		store.updateStore({ book: messageValue as BackgroundStore["book"] });
 	},
