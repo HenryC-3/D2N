@@ -1,21 +1,25 @@
 import { Client, NotionClientError } from "@notionhq/client";
 import { ExtensionError } from "../types";
 import { ActionForOneTimeMessages, BackgroundStore } from "./types";
-import { store } from "./store";
+import { createStore } from "./store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+
+const store = createStore();
 
 export const actions: ActionForOneTimeMessages = {
 	storeBook: function handleStoreBook(messageValue) {
-		store.book = messageValue as BackgroundStore["book"];
+		store.updateStore({ book: messageValue as BackgroundStore["book"] });
 	},
 	storeNote: function handleStoreNote(messageValue) {
-		store.userNote = messageValue as BackgroundStore["userNote"];
+		store.updateStore({
+			userNote: messageValue as BackgroundStore["userNote"],
+		});
 	},
 	saveBookToNotion: async function handleSaveBook(
 		messageValue,
 		backgroundResponse
 	) {
-		addBook(store)
+		addBook(store.getStore())
 			.then((res) => {
 				if (res && res.object === "page") {
 					backgroundResponse({
