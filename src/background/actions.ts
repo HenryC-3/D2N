@@ -34,115 +34,114 @@ export const actions: ActionForOneTimeMessages = {
 					error: error as NotionClientError,
 				})
 			);
+		async function addBook(store: BackgroundStore) {
+			const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } =
+				import.meta.env;
+			const notion = new Client({ auth: token });
+			if (!store.book) {
+				// eslint-disable-next-line no-throw-literal
+				throw {
+					name: "ContentScriptError",
+					message:
+						"Sorry, D2N was unable to retrieve information about the book from this page. Please make sure you are on a valid book page and try again",
+				} as ExtensionError;
+			}
+			if (store.book) {
+				const response = await notion.pages.create({
+					parent: { database_id: db },
+					properties: {
+						title: {
+							title: [
+								{
+									text: {
+										content: store.book.title,
+									},
+								},
+							],
+						},
+						Author: {
+							rich_text: [
+								{
+									text: {
+										content: store.book.author,
+									},
+								},
+							],
+						},
+						Publisher: {
+							rich_text: [
+								{
+									text: {
+										content: store.book.publisher,
+									},
+								},
+							],
+						},
+						Producer: {
+							rich_text: [
+								{
+									text: {
+										content: store.book.producer,
+									},
+								},
+							],
+						},
+						Subtitle: {
+							rich_text: [
+								{
+									text: {
+										content: store.book.subtitle ? store.book.subtitle : "",
+									},
+								},
+							],
+						},
+						PublishDate: {
+							date: {
+								start: store.book.publishDate,
+							},
+						},
+						PageCount: {
+							number: store.book.pageCount,
+						},
+						Price: {
+							number: store.book.price,
+						},
+						ISBN: {
+							number: store.book.ISBN,
+						},
+						Rating: {
+							number: store.book.rating,
+						},
+						RatingCount: {
+							number: store.book.ratingCount,
+						},
+						Cover: {
+							files: [
+								{
+									name: `${store.book.title}-${store.book.ISBN}`,
+									external: {
+										url: store.book.cover,
+									},
+								},
+							],
+						},
+						Note: {
+							rich_text: [
+								{
+									text: {
+										content: store.userNote ? store.userNote : "",
+									},
+								},
+							],
+						},
+						Douban: {
+							url: store.book.douban,
+						},
+					},
+				});
+				console.log("Success! Entry added.");
+				return response;
+			}
+		}
 	},
 };
-
-export async function addBook(store: BackgroundStore) {
-	const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
-		.env;
-	const notion = new Client({ auth: token });
-	if (!store.book) {
-		// eslint-disable-next-line no-throw-literal
-		throw {
-			name: "ContentScriptError",
-			message:
-				"Sorry, D2N was unable to retrieve information about the book from this page. Please make sure you are on a valid book page and try again",
-		} as ExtensionError;
-	}
-	if (store.book) {
-		const response = await notion.pages.create({
-			parent: { database_id: db },
-			properties: {
-				title: {
-					title: [
-						{
-							text: {
-								content: store.book.title,
-							},
-						},
-					],
-				},
-				Author: {
-					rich_text: [
-						{
-							text: {
-								content: store.book.author,
-							},
-						},
-					],
-				},
-				Publisher: {
-					rich_text: [
-						{
-							text: {
-								content: store.book.publisher,
-							},
-						},
-					],
-				},
-				Producer: {
-					rich_text: [
-						{
-							text: {
-								content: store.book.producer,
-							},
-						},
-					],
-				},
-				Subtitle: {
-					rich_text: [
-						{
-							text: {
-								content: store.book.subtitle ? store.book.subtitle : "",
-							},
-						},
-					],
-				},
-				PublishDate: {
-					date: {
-						start: store.book.publishDate,
-					},
-				},
-				PageCount: {
-					number: store.book.pageCount,
-				},
-				Price: {
-					number: store.book.price,
-				},
-				ISBN: {
-					number: store.book.ISBN,
-				},
-				Rating: {
-					number: store.book.rating,
-				},
-				RatingCount: {
-					number: store.book.ratingCount,
-				},
-				Cover: {
-					files: [
-						{
-							name: `${store.book.title}-${store.book.ISBN}`,
-							external: {
-								url: store.book.cover,
-							},
-						},
-					],
-				},
-				Note: {
-					rich_text: [
-						{
-							text: {
-								content: store.userNote ? store.userNote : "",
-							},
-						},
-					],
-				},
-				Douban: {
-					url: store.book.douban,
-				},
-			},
-		});
-		console.log("Success! Entry added.");
-		return response;
-	}
-}
