@@ -7,9 +7,9 @@ export interface BackgroundStore {
 
 export type ActionForOneTimeMessages = {
 	// eslint-disable-next-line no-unused-vars
-	[k in keyof Required<OneTimeMessage>]: Action;
+	[K in keyof Required<OneTimeMessage>]: Action<Required<OneTimeMessage>[K]>;
 };
-export type Action = (
-	messageValue: OneTimeMessage[keyof OneTimeMessage],
+export type Action<T> = (
+	messageValue: T,
 	backgroundResponse: (msg: BackgroundResponse) => void
 ) => void;

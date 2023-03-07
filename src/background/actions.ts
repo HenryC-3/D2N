@@ -15,7 +15,7 @@ export const actions: ActionForOneTimeMessages = {
 			database_id: db,
 			filter: {
 				property: "ISBN",
-				number: { equals: messageValue as number },
+				number: { equals: messageValue },
 			},
 		});
 		backgroundResponse({
@@ -24,11 +24,11 @@ export const actions: ActionForOneTimeMessages = {
 		});
 	},
 	storeBook: function handleStoreBook(messageValue) {
-		store.updateStore({ book: messageValue as BackgroundStore["book"] });
+		store.updateStore({ book: messageValue });
 	},
 	storeNote: function handleStoreNote(messageValue) {
 		store.updateStore({
-			userNote: messageValue as BackgroundStore["userNote"],
+			userNote: messageValue,
 		});
 	},
 	saveBookToNotion: async function handleSaveBook(
