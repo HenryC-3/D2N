@@ -1,7 +1,7 @@
 <template>
 	<div class="flex flex-col gap-3 items-center p-3">
 		<!-- title -->
-		<h1 class="text-red-400 font-semibold">Error {{ errName }}</h1>
+		<h1 class="text-red-400 font-semibold text-lg">Error {{ errName }}</h1>
 		<!-- message -->
 		<div
 			:class="{ hidden: !errMessage }"

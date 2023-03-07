@@ -36,9 +36,6 @@ onMounted(() => {
 const handleClick = () => {
 	// change loading status
 	loadingStatus.value = true;
-
-	// NOTE: 接下来调用的函数的顺序很重要，否则会导致发送失败
-	// 原因在于，下方的每个函数都会向 background script 发送一条信息，background script 每次只能接收一条信息，详见 ./src/background.ts
 	addNote(bookNote.value);
 	addBookToNotion(
 		(res) => {
