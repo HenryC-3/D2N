@@ -6,7 +6,8 @@ export interface Book {
 	author: string;
 	publisher: string;
 	producer: string;
-	subtitle: string;
+	subtitle?: string;
+	originalTitle?: string;
 	publishDate: string;
 	pageCount: number;
 	price: number;

@@ -39,9 +39,13 @@ async function getBookInfo() {
 
 	// 	find and format target information of the book
 	function getInfoByAnchor(anchor: Cheerio<cheerio.Element>) {
-		const source = anchor[0].nextSibling as unknown as Element;
-		if (source.nodeValue) {
-			return source.nodeValue.trim();
+		try {
+			const source = anchor[0].nextSibling as unknown as Element;
+			if (source.nodeValue) {
+				return source.nodeValue.trim();
+			}
+		} catch (error) {
+			return "";
 		}
 		return "";
 	}

@@ -89,7 +89,7 @@ export async function addBook(store: BackgroundStore) {
 					rich_text: [
 						{
 							text: {
-								content: store.book.subtitle,
+								content: store.book.subtitle ? store.book.subtitle : "",
 							},
 						},
 					],
