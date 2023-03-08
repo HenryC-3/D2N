@@ -13,9 +13,7 @@ export function listenToMessage(actions: ActionForOneTimeMessages) {
 					const data = messageValue[actionKey as keyof OneTimeMessage];
 					const action = actions[
 						actionKey as keyof ActionForOneTimeMessages
-						// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-						// @ts-ignore
-					] as Action;
+					] as Action<typeof data>;
 					action(data, backgroundResponse);
 				}
 			}
