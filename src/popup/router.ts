@@ -18,15 +18,19 @@ export const router = createRouter({
 });
 
 router.beforeEach(() => {
-	sendToBackground(
-		{ checkAuthInfoExist: true },
-		{
-			successAction: () => {
-				return true;
-			},
-			failedAction: () => {
-				router.push("/auth");
-			},
-		}
-	);
+	try {
+		sendToBackground(
+			{ checkAuthInfoExist: true },
+			{
+				successAction: () => {
+					return true;
+				},
+				failedAction: () => {
+					router.push("/auth");
+				},
+			}
+		);
+	} catch (error) {
+		return true;
+	}
 });
