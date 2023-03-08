@@ -38,12 +38,12 @@ export function getErrorMessage(error: ExtensionError) {
 	};
 }
 
-export function checkAuth(
-	input: OneTimeMessage["checkAuth"],
+export function checkAndSaveAuth(
+	input: OneTimeMessage["checkAndSaveAuth"],
 	actions: { successAction?: SuccessAction; failedAction?: FailedAction } = {}
 ) {
 	chrome.runtime.sendMessage<OneTimeMessage, BackgroundResponse>(
-		{ checkAuth: input },
+		{ checkAndSaveAuth: input },
 		(res) => {
 			if (res.success && res.data && actions.successAction) {
 				actions.successAction(res.data);

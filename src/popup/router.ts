@@ -5,10 +5,10 @@ import ErrorPage from "./components/ErrorPage.vue";
 import AuthPage from "./components/AuthPage.vue";
 
 const routes = [
-	{ path: "/", component: AddBookPage },
+	{ path: "/save", component: AddBookPage },
 	{ path: "/open", component: OpenBookPage },
 	{ path: "/error", component: ErrorPage },
-	{ path: "/Auth", component: AuthPage },
+	{ path: "/", component: AuthPage },
 ];
 
 export const router = createRouter({
