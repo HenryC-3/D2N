@@ -7,6 +7,18 @@ import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 const store = createStore();
 
 export const actions: ActionForOneTimeMessages = {
+	checkAuth: async function handleCheckAuth(messageValue, backgroundResponse) {
+		const { tokenSecret, databaseID } = messageValue;
+		const notion = new Client({ auth: tokenSecret });
+		try {
+			const response = await notion.databases.retrieve({
+				database_id: databaseID,
+			});
+			backgroundResponse({ success: true, data: response });
+		} catch (error) {
+			backgroundResponse({ success: false, error: error as NotionClientError });
+		}
+	},
 	getBookLink: async function handleLink(messageValue, backgroundResponse) {
 		const { VITE_NOTION_AUTH_TOKEN: token, VITE_NOTION_DB_ID: db } = import.meta
 			.env;

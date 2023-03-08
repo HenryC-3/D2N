@@ -1,12 +1,11 @@
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import type {
 	BackgroundResponse,
 	ExtensionError,
 	OneTimeMessage,
 } from "../../types";
 
-type SuccessAction = (input: PageObjectResponse) => void;
-type FailedAction = (input: ExtensionError) => void;
+type SuccessAction = (input: NonNullable<BackgroundResponse["data"]>) => void;
+type FailedAction = (input: NonNullable<BackgroundResponse["error"]>) => void;
 
 export function addBookToNotion(
 	successAction?: SuccessAction,
@@ -37,4 +36,22 @@ export function getErrorMessage(error: ExtensionError) {
 				? error.message
 				: "Sorry, D2N fails to save the book to Notion at this time. Please try again later or click learn more if the issue persists.",
 	};
+}
+
+export function checkAuth(
+	input: OneTimeMessage["checkAuth"],
+	actions: { successAction?: SuccessAction; failedAction?: FailedAction } = {}
+) {
+	chrome.runtime.sendMessage<OneTimeMessage, BackgroundResponse>(
+		{ checkAuth: input },
+		(res) => {
+			if (res.success && res.data && actions.successAction) {
+				actions.successAction(res.data);
+			}
+			if (!res.success && res.error && actions.failedAction) {
+				const err = res.error;
+				actions.failedAction(err);
+			}
+		}
+	);
 }

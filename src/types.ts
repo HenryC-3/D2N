@@ -1,5 +1,8 @@
 import { NotionClientError } from "@notionhq/client";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import {
+	GetDatabaseResponse,
+	PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 export interface Book {
 	title: string;
@@ -20,8 +23,8 @@ export interface Book {
 
 export interface BackgroundResponse {
 	success?: boolean;
-	data?: PageObjectResponse;
-	error?: NotionClientError;
+	data?: PageObjectResponse | GetDatabaseResponse;
+	error?: ExtensionError;
 }
 
 export interface OneTimeMessage {
@@ -41,6 +44,10 @@ export interface OneTimeMessage {
 	 * receiver: background script
 	 * notify background script get the book URL in Notion */
 	getBookLink?: number;
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script check the token secret and database id provided by user */
+	checkAuth?: { tokenSecret: string; databaseID: string };
 }
 
 export type ExtensionError =
