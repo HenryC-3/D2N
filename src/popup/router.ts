@@ -20,7 +20,7 @@ export const router = createRouter({
 router.beforeEach(() => {
 	try {
 		sendToBackground(
-			{ checkAuthInfoExist: true },
+			{ getAuthInfo: true },
 			{
 				successAction: () => {
 					return true;

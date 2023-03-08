@@ -9,17 +9,14 @@ import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints
 const store = createStore();
 
 export const actions: ActionForOneTimeMessages = {
-	checkAuthInfoExist: async function handleCheck(
-		messageValue,
-		backgroundResponse
-	) {
+	getAuthInfo: async function handleCheck(messageValue, backgroundResponse) {
 		try {
 			const response = await getAuthInfo();
 			if (response) {
 				// TODO
 				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 				// @ts-ignore
-				backgroundResponse({ exist: true });
+				backgroundResponse({ data: response });
 			}
 		} catch (error) {
 			backgroundResponse({ error: error as ExtensionError });
@@ -35,7 +32,7 @@ export const actions: ActionForOneTimeMessages = {
 			const response = (await notion.databases.retrieve({
 				database_id: databaseID,
 			})) as DatabaseObjectResponse;
-			
+
 			await saveAuthInfo({
 				databaseURL: response.url,
 				databaseTitle: response.title[0].plain_text,
