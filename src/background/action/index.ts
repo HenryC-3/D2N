@@ -19,9 +19,9 @@ export const actions: ActionForOneTimeMessages = {
 			});
 
 			await saveAuthInfo(messageValue);
-			backgroundResponse({ success: true, data: response });
+			backgroundResponse({ data: response });
 		} catch (error) {
-			backgroundResponse({ success: false, error: error as NotionClientError });
+			backgroundResponse({ error: error as NotionClientError });
 		}
 	},
 	getBookLink: async function handleLink(messageValue, backgroundResponse) {
@@ -35,7 +35,6 @@ export const actions: ActionForOneTimeMessages = {
 			},
 		});
 		backgroundResponse({
-			success: true,
 			data: response.results[0] as PageObjectResponse,
 		});
 	},
@@ -55,14 +54,12 @@ export const actions: ActionForOneTimeMessages = {
 			.then((res) => {
 				if (res && res.object === "page") {
 					backgroundResponse({
-						success: true,
 						data: res as PageObjectResponse,
 					});
 				}
 			})
 			.catch((error) =>
 				backgroundResponse({
-					success: false,
 					error: error as NotionClientError,
 				})
 			);

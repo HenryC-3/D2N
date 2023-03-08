@@ -41,8 +41,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import LoadingButton from "./LoadingButton.vue";
-import { checkAndSaveAuth } from "../utils";
 import { useRouter } from "vue-router";
+import { sendToBackground } from "../messages";
 
 const databaseID = ref<string>("");
 const tokenSecret = ref<string>("");
@@ -59,17 +59,19 @@ const handleClick = () => {
 	// loading
 	loadingStatus.value = true;
 	// check if database exist
-	checkAndSaveAuth(
+	sendToBackground(
 		{
-			tokenSecret: tokenSecret.value,
-			databaseID: databaseID.value,
+			checkAndSaveAuth: {
+				tokenSecret: tokenSecret.value,
+				databaseID: databaseID.value,
+			},
 		},
 		{
 			successAction: () => {
 				loadingStatus.value = false;
 				router.push("/save");
 			},
-			failedAction: (err) => {
+			failedAction: () => {
 				loadingStatus.value = false;
 				errName.value = "(⑉꒦ິ^꒦ິ⑉)";
 				isErr.value = true;
