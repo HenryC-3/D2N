@@ -2,6 +2,7 @@ import { BackgroundResponse } from "../types";
 import { OneTimeMessage } from "../types";
 import { getBookInfo } from "./actions/getBookInfo";
 import { createButton } from "./actions/createButton";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 export function sendBookToBackground() {
 	const book = getBookInfo();
@@ -13,8 +14,8 @@ export function createNotionButton() {
 	chrome.runtime.sendMessage<OneTimeMessage>(
 		{ getBookLink: isbn },
 		(res: BackgroundResponse) => {
-			if (res.success && res.data) {
-				createButton(res.data.url);
+			if (res.data) {
+				createButton((res.data as PageObjectResponse).url);
 			}
 		}
 	);
