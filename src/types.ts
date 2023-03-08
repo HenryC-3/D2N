@@ -47,6 +47,10 @@ export interface OneTimeMessage {
 	 * receiver: background script
 	 * notify background script check the token secret and database id provided by user */
 	checkAndSaveAuth?: { tokenSecret: string; databaseID: string };
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script check the token secret and database id is available in indexDB*/
+	checkAuthInfoExist?: boolean;
 }
 
 export type ExtensionError =

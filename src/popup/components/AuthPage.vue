@@ -69,7 +69,7 @@ const handleClick = () => {
 		{
 			successAction: () => {
 				loadingStatus.value = false;
-				router.push("/save");
+				router.push("/");
 			},
 			failedAction: () => {
 				loadingStatus.value = false;
