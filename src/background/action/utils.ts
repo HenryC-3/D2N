@@ -1,32 +1,32 @@
 import { Client } from "@notionhq/client";
-import { ExtensionError, OneTimeMessage } from "../../types";
-import { BackgroundStore } from "../types";
+import { ExtensionError } from "../../types";
+import { BackgroundStore, IndexDB } from "../types";
 import { set, get } from "idb-keyval";
 
-export async function saveAuthInfo(
-	input: NonNullable<OneTimeMessage["checkAndSaveAuth"]>
-) {
-	set("databaseID", input.databaseID);
-	set("tokenSecret", input.tokenSecret);
+export async function saveAuthInfo(input: IndexDB) {
+	// eslint-disable-next-line guard-for-in
+	for (const key in input) {
+		await set(key, input[key as keyof IndexDB]);
+	}
 }
 
 export async function getAuthInfo() {
 	const databaseID = await get("databaseID");
 	const tokenSecret = await get("tokenSecret");
+	const databaseTitle = await get("databaseTitle");
+	const databaseURL = await get("databaseURL");
 	const {
 		VITE_NOTION_AUTH_TOKEN: devTokenSecret,
 		VITE_NOTION_DB_ID: devDatabaseID,
 	} = import.meta.env;
 	if (databaseID && tokenSecret) {
-		return { databaseID, tokenSecret } as NonNullable<
-			OneTimeMessage["checkAndSaveAuth"]
-		>;
+		return { databaseID, tokenSecret, databaseTitle, databaseURL } as IndexDB;
 	}
 	if (devTokenSecret && devDatabaseID) {
 		return {
 			databaseID: devDatabaseID,
 			tokenSecret: devTokenSecret,
-		} as NonNullable<OneTimeMessage["checkAndSaveAuth"]>;
+		} as IndexDB;
 	}
 	// eslint-disable-next-line no-throw-literal
 	throw {

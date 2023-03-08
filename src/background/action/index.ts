@@ -4,6 +4,7 @@ import { createStore } from "../store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { addBook, getAuthInfo, saveAuthInfo } from "./utils";
 import { ExtensionError } from "../../types";
+import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const store = createStore();
 
@@ -31,11 +32,16 @@ export const actions: ActionForOneTimeMessages = {
 		const { tokenSecret, databaseID } = messageValue;
 		const notion = new Client({ auth: tokenSecret });
 		try {
-			const response = await notion.databases.retrieve({
+			const response = (await notion.databases.retrieve({
 				database_id: databaseID,
+			})) as DatabaseObjectResponse;
+			
+			await saveAuthInfo({
+				databaseURL: response.url,
+				databaseTitle: response.title[0].plain_text,
+				databaseID: messageValue.databaseID,
+				tokenSecret: messageValue.tokenSecret,
 			});
-
-			await saveAuthInfo(messageValue);
 			backgroundResponse({ data: response });
 		} catch (error) {
 			backgroundResponse({ error: error as NotionClientError });
