@@ -1,5 +1,8 @@
 import { NotionClientError } from "@notionhq/client";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import {
+	GetDatabaseResponse,
+	PageObjectResponse,
+} from "@notionhq/client/build/src/api-endpoints";
 
 export interface Book {
 	title: string;
@@ -19,9 +22,8 @@ export interface Book {
 }
 
 export interface BackgroundResponse {
-	success?: boolean;
-	data?: PageObjectResponse;
-	error?: NotionClientError;
+	data?: PageObjectResponse | GetDatabaseResponse;
+	error?: ExtensionError;
 }
 
 export interface OneTimeMessage {
@@ -41,11 +43,23 @@ export interface OneTimeMessage {
 	 * receiver: background script
 	 * notify background script get the book URL in Notion */
 	getBookLink?: number;
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script check the token secret and database id provided by user */
+	checkAndSaveAuth?: { tokenSecret: string; databaseID: string };
+	/* sender: popup script
+	 * receiver: background script
+	 * notify background script check the token secret and database id is available in indexDB*/
+	getAuthInfo?: boolean;
 }
 
 export type ExtensionError =
 	| {
 			name: "ContentScriptError";
 			message: "Sorry, D2N was unable to retrieve information about the book from this page. Please make sure you are on a valid book page and try again";
+	  }
+	| {
+			name: "Token&IDNotExistError";
+			message: "Sorry, You have to provide Notion Secret Token and Database ID to use D2N";
 	  }
 	| NotionClientError;

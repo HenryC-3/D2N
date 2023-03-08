@@ -22,9 +22,11 @@
 
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
-import { addBookToNotion, getErrorMessage } from "../utils/index";
 import { watch, ref } from "vue";
 import LoadingButton from "./LoadingButton.vue";
+import { sendToBackground } from "../messages";
+import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { ExtensionError } from "../../types";
 
 const router = useRouter();
 const route = useRoute();
@@ -42,16 +44,32 @@ watch(
 const handleClick = () => {
 	loadingStatus.value = true;
 	setTimeout(() => {
-		addBookToNotion(
-			(res) => {
-				router.push({ path: "/open", query: { data: res.url } });
-			},
-			(err) => {
-				loadingStatus.value = false;
-				errName.value = getErrorMessage(err).name;
+		sendToBackground(
+			{ saveBookToNotion: true },
+			{
+				successAction: (res) => {
+					router.push({
+						path: "/open",
+						query: { data: (res as PageObjectResponse).url },
+					});
+				},
+				failedAction: (err) => {
+					loadingStatus.value = false;
+					errName.value = getErrorMessage(err).name;
+				},
 			}
 		);
 	}, 1000);
+
+	function getErrorMessage(error: ExtensionError) {
+		return {
+			name: error.name,
+			message:
+				error.name === "ContentScriptError"
+					? error.message
+					: "Sorry, D2N fails to save the book to Notion at this time. Please try again later or click learn more if the issue persists.",
+		};
+	}
 };
 </script>
 

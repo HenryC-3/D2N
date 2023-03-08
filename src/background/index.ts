@@ -1,4 +1,4 @@
 import { listenToMessage } from "./message";
-import { actions } from "./actions";
+import { actions } from "./action";
 
 listenToMessage(actions);

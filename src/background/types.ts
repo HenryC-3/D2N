@@ -13,3 +13,8 @@ export type Action<T> = (
 	messageValue: T,
 	backgroundResponse: (msg: BackgroundResponse) => void
 ) => void;
+
+export type IndexDB = OneTimeMessage["checkAndSaveAuth"] & {
+	databaseTitle: string;
+	databaseURL: string;
+};
