@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from "vue-router";
 import { watch, ref } from "vue";
-import LoadingButton from "./LoadingButton.vue";
+import LoadingButton from "../components/LoadingButton.vue";
 import { sendToBackground } from "../messages";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { ExtensionError } from "../../types";

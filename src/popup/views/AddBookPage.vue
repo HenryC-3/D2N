@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import LoadingButton from "./LoadingButton.vue";
+import LoadingButton from "../components/LoadingButton.vue";
 import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
 import { sendToBackground } from "../messages";

@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-import AddBookPage from "./components/AddBookPage.vue";
-import OpenBookPage from "./components/OpenBookPage.vue";
-import ErrorPage from "./components/ErrorPage.vue";
-import AuthPage from "./components/AuthPage.vue";
+import AddBookPage from "./views/AddBookPage.vue";
+import OpenBookPage from "./views/OpenBookPage.vue";
+import ErrorPage from "./views/ErrorPage.vue";
+import AuthPage from "./views/AuthPage.vue";
 import { sendToBackground } from "./messages/index";
 
 const routes = [

@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { useRoute } from "vue-router";
-import LoadingButton from "./LoadingButton.vue";
+import LoadingButton from "../components/LoadingButton.vue";
 
 const route = useRoute();
 const openInNotion = () => {

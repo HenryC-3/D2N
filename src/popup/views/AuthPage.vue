@@ -56,7 +56,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import LoadingButton from "./LoadingButton.vue";
+import LoadingButton from "../components/LoadingButton.vue";
 import { useRouter } from "vue-router";
 import { sendToBackground } from "../messages";
 import { IndexDB } from "../../background/types";
