@@ -12,6 +12,7 @@ dist
 dist-ssr
 *.local
 
+
 # Editor directories and files
 .idea
 .DS_Store
@@ -20,3 +21,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.eslintcache
