@@ -12,13 +12,13 @@
 	"lint-staged": {
 		"*.{vue,ts,tsx,cts,mts}": "tsc --noEmit",
 		"*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --cache --fix",
-		"*.{ts,js,css,md}": "prettier --write"
+		"**/*": "prettier --write"
 	},
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-git"
-    }
-  },
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-git"
+		}
+	},
 	"dependencies": {
 		"@notionhq/client": "^2.2.3",
 		"cheerio": "1.0.0-rc.12",
