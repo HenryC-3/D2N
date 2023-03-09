@@ -9,6 +9,7 @@ specifiers:
   '@vitejs/plugin-vue': ^4.0.0
   autoprefixer: ^10.4.13
   cheerio: 1.0.0-rc.12
+  cz-git: ^1.5.3
   eslint: ^8.35.0
   eslint-config-google: ^0.14.0
   eslint-config-prettier: ^8.6.0
@@ -40,6 +41,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.54.0_ycpbpc6yetojsgtrx3mwntkhsu
   '@vitejs/plugin-vue': 4.0.0_vite@4.1.4+vue@3.2.47
   autoprefixer: 10.4.13_postcss@8.4.21
+  cz-git: 1.5.3
   eslint: 8.35.0
   eslint-config-google: 0.14.0_eslint@8.35.0
   eslint-config-prettier: 8.6.0_eslint@8.35.0
@@ -1014,6 +1016,10 @@ packages:
 
   /csstype/2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
+
+  /cz-git/1.5.3:
+    resolution: {integrity: sha512-AToFbLeqhPU/fNM6gH8dX4c5pIIFzHTUhS1FkDaNjsCylrjYPYAMyRUczn4eeAcxtqy1bctIQDOEOwPRTnUs5A==}
+    dev: true
 
   /de-indent/1.0.2:
     resolution: {integrity: sha512-e/1zu3xH5MQryN2zdVaF0OrdNLUbvWxzMbi+iNA6Bky7l1RoP8a2fIbRocyHclXt/arDrrR6lL3TqFD9pMQTsg==}

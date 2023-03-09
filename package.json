@@ -14,6 +14,11 @@
 		"*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --cache --fix",
 		"*.{ts,js,css,md}": "prettier --write"
 	},
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-git"
+    }
+  },
 	"dependencies": {
 		"@notionhq/client": "^2.2.3",
 		"cheerio": "1.0.0-rc.12",
@@ -28,6 +33,7 @@
 		"@typescript-eslint/parser": "^5.54.0",
 		"@vitejs/plugin-vue": "^4.0.0",
 		"autoprefixer": "^10.4.13",
+		"cz-git": "^1.5.3",
 		"eslint": "^8.35.0",
 		"eslint-config-google": "^0.14.0",
 		"eslint-config-prettier": "^8.6.0",
