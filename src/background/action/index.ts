@@ -2,13 +2,13 @@ import { Client, NotionClientError } from "@notionhq/client";
 import { createStore } from "../store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { addBook, getAuthInfo, saveAuthInfo } from "./utils";
-import { ActionForOneTimeMessages } from "../../types";
+import { BackgroundActions } from "../../types/BackgroundActions";
 import { ExtensionError } from "../../types/ExtensionError";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const store = createStore();
 
-export const actions: ActionForOneTimeMessages = {
+export const actions: BackgroundActions = {
 	getAuthInfo: async function handleCheck(messageValue, backgroundResponse) {
 		try {
 			const response = await getAuthInfo();

@@ -1,6 +1,3 @@
-import { ExtensionRequest } from "./ExtensionRequest";
-import { BackgroundResponse } from "./BackgroundResponse";
-
 export interface Book {
 	title: string;
 	author: string;
@@ -29,14 +26,3 @@ export interface BackgroundStore {
 	book?: Book;
 	userNote?: string;
 }
-
-export type ActionForOneTimeMessages = {
-	// eslint-disable-next-line no-unused-vars
-	[K in keyof Required<ExtensionRequest>]: Action<
-		Required<ExtensionRequest>[K]
-	>;
-};
-export type Action<T> = (
-	messageValue: T,
-	backgroundResponse: (msg: BackgroundResponse) => void
-) => void;
