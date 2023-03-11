@@ -1,16 +1,17 @@
-import { BackgroundResponse, OneTimeMessage } from "../types";
-import { ActionForOneTimeMessages, Action } from "./types";
+import { Action, ActionForOneTimeMessages } from "../types";
+import { BackgroundResponse } from "../types/BackgroundResponse";
+import { ExtensionRequest } from "../types/ExtensionRequest";
 
 export function listenToMessage(actions: ActionForOneTimeMessages) {
 	chrome.runtime.onMessage.addListener(
 		(
-			messageValue: OneTimeMessage,
+			messageValue: ExtensionRequest,
 			_,
 			backgroundResponse: (msg: BackgroundResponse) => void
 		) => {
 			for (const actionKey in actions) {
-				if (messageValue[actionKey as keyof OneTimeMessage]) {
-					const data = messageValue[actionKey as keyof OneTimeMessage];
+				if (messageValue[actionKey as keyof ExtensionRequest]) {
+					const data = messageValue[actionKey as keyof ExtensionRequest];
 					const action = actions[
 						actionKey as keyof ActionForOneTimeMessages
 					] as Action<typeof data>;

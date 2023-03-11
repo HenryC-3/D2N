@@ -26,7 +26,7 @@ import { watch, ref } from "vue";
 import LoadingButton from "../components/LoadingButton.vue";
 import { sendToBackground } from "../messages";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { ExtensionError } from "../../types";
+import { ExtensionError } from "../../types/ExtensionError";
 
 const router = useRouter();
 const route = useRoute();

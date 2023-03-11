@@ -1,9 +1,9 @@
 import { Client, NotionClientError } from "@notionhq/client";
-import { ActionForOneTimeMessages } from "../types";
 import { createStore } from "../store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { addBook, getAuthInfo, saveAuthInfo } from "./utils";
-import { ExtensionError } from "../../types";
+import { ActionForOneTimeMessages } from "../../types";
+import { ExtensionError } from "../../types/ExtensionError";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 
 const store = createStore();
