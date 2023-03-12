@@ -1,18 +1,32 @@
-# Vue 3 + TypeScript + Vite
+<div style="display: flex; justify-content:center; width: 100%; height: 180px;background-image: url('./docs/2023-03-12-15-30-21.png'); background-size: cover"><img src="./public/icon128.png" style="height: 64px"/></div>
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 简介
 
-## Recommended IDE Setup
+D2N（Douban to Notion）是一个 chrome 插件，用于将豆瓣图书页的相关信息快速添加到 Notion Database 中。
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
+![](docs/2023-03-12-14-57-34.png)
 
-## Type Support For `.vue` Imports in TS
+<!-- ![](docs/2023-03-12-15-30-21.png) -->
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+## 功能
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+- 🕸️ 抓取豆瓣书籍信息，告别复制粘贴
+- 📓 为书籍添加笔记，捕捉添加瞬间想法
+- 🔘 <kbd style="background:#4EAADC; color: white; border-radius: 2px; height:100%">view in notion</kbd> 按钮，查看已添加到 Notion 中的书籍
+- 🔗 跳转到 Notion，无缝切换到 Notion
+- ⚡️ 支持快捷键
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+## 开发
+
+1. 安装依赖
+
+```bash
+pnpm i
+npm run dev
+```
+
+2. 安装插件，详见 [load-unpacked-extension](https://developer.chrome.com/docs/extensions/mv3/getstarted/development-basics/#load-unpacked)
+
+## 证书
+
+[MIT](./LICENSE)
