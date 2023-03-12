@@ -58,8 +58,7 @@
 import { onMounted, ref } from "vue";
 import LoadingButton from "../components/LoadingButton.vue";
 import { useRouter } from "vue-router";
-import { sendToBackground } from "../messages";
-import { IndexDB } from "../../background/types";
+import { send } from "../../message";
 import { openURLInNewTab } from "../utils";
 
 const databaseID = ref<string>("");
@@ -80,15 +79,14 @@ const databaseURL = ref("");
 
 // get DB title, id, url and secret from indexDB
 onMounted(() => {
-	sendToBackground(
-		{ getAuthInfo: true },
+	send<"getAuthInfo">(
+		{ type: "getAuthInfo" },
 		{
 			successAction: (res) => {
-				const response = res as unknown as IndexDB;
-				databaseID.value = response.databaseID;
-				tokenSecret.value = response.tokenSecret;
-				databaseTitle.value = response.databaseTitle;
-				databaseURL.value = response.databaseURL;
+				databaseID.value = res.databaseID;
+				tokenSecret.value = res.tokenSecret;
+				databaseTitle.value = res.databaseTitle;
+				databaseURL.value = res.databaseURL;
 			},
 		}
 	);
@@ -98,12 +96,10 @@ const handleClick = () => {
 	// loading
 	loadingStatus.value = true;
 	// check if database exist
-	sendToBackground(
+	send<"checkAndSaveAuth">(
 		{
-			checkAndSaveAuth: {
-				tokenSecret: tokenSecret.value,
-				databaseID: databaseID.value,
-			},
+			type: "checkAndSaveAuth",
+			data: { tokenSecret: tokenSecret.value, databaseID: databaseID.value },
 		},
 		{
 			successAction: () => {

@@ -1,19 +1,23 @@
-import { BackgroundResponse, OneTimeMessage } from "../types";
-import { ActionForOneTimeMessages, Action } from "./types";
+import {
+	Actions,
+	ExtensionRequest,
+	BackgroundResponse,
+} from "../types/Message";
 
-export function listenToMessage(actions: ActionForOneTimeMessages) {
+export function listenToMessage(actions: Actions) {
 	chrome.runtime.onMessage.addListener(
 		(
-			messageValue: OneTimeMessage,
+			messageValue: ExtensionRequest,
 			_,
-			backgroundResponse: (msg: BackgroundResponse) => void
+			backgroundResponse: (response: BackgroundResponse) => void
 		) => {
 			for (const actionKey in actions) {
-				if (messageValue[actionKey as keyof OneTimeMessage]) {
-					const data = messageValue[actionKey as keyof OneTimeMessage];
-					const action = actions[
-						actionKey as keyof ActionForOneTimeMessages
-					] as Action<typeof data>;
+				if (messageValue["type"] === actionKey) {
+					const data = messageValue.data;
+					const action = actions[actionKey];
+					// TODO
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
 					action(data, backgroundResponse);
 				}
 			}

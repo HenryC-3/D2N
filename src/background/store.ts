@@ -1,4 +1,4 @@
-import { BackgroundStore } from "./types";
+import { BackgroundStore } from "../types";
 
 export const store: BackgroundStore = {};
 

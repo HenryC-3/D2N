@@ -3,7 +3,7 @@ import AddBookPage from "./views/AddBookPage.vue";
 import OpenBookPage from "./views/OpenBookPage.vue";
 import ErrorPage from "./views/ErrorPage.vue";
 import AuthPage from "./views/AuthPage.vue";
-import { sendToBackground } from "./messages/index";
+import { send } from "../message";
 
 const routes = [
 	{ path: "/", component: AddBookPage },
@@ -19,8 +19,8 @@ export const router = createRouter({
 
 router.beforeEach(() => {
 	try {
-		sendToBackground(
-			{ getAuthInfo: true },
+		send<"getAuthInfo">(
+			{ type: "getAuthInfo" },
 			{
 				successAction: () => {
 					return true;

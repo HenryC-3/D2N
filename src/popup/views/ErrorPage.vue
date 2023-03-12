@@ -24,9 +24,8 @@
 import { useRoute, useRouter } from "vue-router";
 import { watch, ref } from "vue";
 import LoadingButton from "../components/LoadingButton.vue";
-import { sendToBackground } from "../messages";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
-import { ExtensionError } from "../../types";
+import { send } from "../../message";
+import { ExtensionError } from "../../types/Error";
 
 const router = useRouter();
 const route = useRoute();
@@ -44,13 +43,13 @@ watch(
 const handleClick = () => {
 	loadingStatus.value = true;
 	setTimeout(() => {
-		sendToBackground(
-			{ saveBookToNotion: true },
+		send<"saveBookToNotion">(
+			{ type: "saveBookToNotion" },
 			{
 				successAction: (res) => {
 					router.push({
 						path: "/open",
-						query: { data: (res as PageObjectResponse).url },
+						query: { data: res.url },
 					});
 				},
 				failedAction: (err) => {

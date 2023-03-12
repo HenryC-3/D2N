@@ -1,21 +1,18 @@
 import { Client, NotionClientError } from "@notionhq/client";
-import { ActionForOneTimeMessages } from "../types";
 import { createStore } from "../store";
 import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
 import { addBook, getAuthInfo, saveAuthInfo } from "./utils";
-import { ExtensionError } from "../../types";
+import { ExtensionError } from "../../types/Error";
 import { DatabaseObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { Actions } from "../../types/Message";
 
 const store = createStore();
 
-export const actions: ActionForOneTimeMessages = {
+export const actions: Actions = {
 	getAuthInfo: async function handleCheck(messageValue, backgroundResponse) {
 		try {
 			const response = await getAuthInfo();
 			if (response) {
-				// TODO
-				// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-				// @ts-ignore
 				backgroundResponse({ data: response });
 			}
 		} catch (error) {
