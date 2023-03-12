@@ -17,9 +17,10 @@
 			<!-- TODO: add link to the article -->
 			<a href="" class="text-[12px] text-[#B5B4B3]">Learn More</a>
 		</button>
-		<!-- configure -->
+		<!-- Navigation button -->
 		<button
 			@click="goToConfigOrHome"
+			:class="{ hidden: !showNavButton }"
 			class="flex items-center justify-end w-[40px] pr-3"
 		>
 			<svg
@@ -53,17 +54,42 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { send } from "../../message";
 const route = useRoute();
 const router = useRouter();
-
 const path = computed(() => {
 	return route.path;
 });
 
 const showHomeIcon = computed(() => {
 	return route.path === "/auth";
+});
+const showNavButton = ref(false);
+
+// show navigation button when auth info is invalid
+onMounted(() => {
+	send<"getAuthInfo">(
+		{ type: "getAuthInfo" },
+		{
+			successAction: () => {
+				showNavButton.value = true;
+			},
+		}
+	);
+});
+
+// update navigation button visibility when route changed
+watch(path, () => {
+	send<"getAuthInfo">(
+		{ type: "getAuthInfo" },
+		{
+			successAction: () => {
+				showNavButton.value = true;
+			},
+		}
+	);
 });
 
 const goToConfigOrHome = () => {
