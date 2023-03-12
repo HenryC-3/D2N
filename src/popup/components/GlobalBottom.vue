@@ -19,10 +19,24 @@
 		</button>
 		<!-- configure -->
 		<button
-			@click="goToConfig"
+			@click="goToConfigOrHome"
 			class="flex items-center justify-end w-[40px] pr-3"
 		>
 			<svg
+				v-if="showHomeIcon"
+				xmlns="http://www.w3.org/2000/svg"
+				width="16"
+				height="16"
+				viewBox="0 0 24 24"
+				class="text-[#B5B4B3]"
+			>
+				<path
+					fill="currentColor"
+					d="M17.5 16.5v2q0 .2.15.35q.15.15.35.15q.2 0 .35-.15q.15-.15.15-.35v-2h2q.2 0 .35-.15q.15-.15.15-.35q0-.2-.15-.35q-.15-.15-.35-.15h-2v-2q0-.2-.15-.35Q18.2 13 18 13q-.2 0-.35.15q-.15.15-.15.35v2h-2q-.2 0-.35.15q-.15.15-.15.35q0 .2.15.35q.15.15.35.15ZM18 21q-2.075 0-3.537-1.462Q13 18.075 13 16q0-2.075 1.463-3.538Q15.925 11 18 11t3.538 1.462Q23 13.925 23 16q0 2.075-1.462 3.538Q20.075 21 18 21ZM6 19q-.825 0-1.412-.587Q4 17.825 4 17V8q0-.475.213-.9q.212-.425.587-.7l6-4.5q.525-.4 1.2-.4q.675 0 1.2.4l6 4.5q.375.275.588.7q.212.425.212.9v1.3q-.475-.15-.975-.225Q18.525 9 18 9V8l-6-4.5L6 8v9h5.075q.075.525.225 1.025q.15.5.375.975Zm6-8.75Z"
+				/>
+			</svg>
+			<svg
+				v-else
 				xmlns="http://www.w3.org/2000/svg"
 				width="16"
 				height="16"
@@ -39,11 +53,25 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from "vue-router";
-
+import { computed } from "vue";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
 const router = useRouter();
-const goToConfig = () => {
-	router.push("/auth");
+
+const path = computed(() => {
+	return route.path;
+});
+
+const showHomeIcon = computed(() => {
+	return route.path === "/auth";
+});
+
+const goToConfigOrHome = () => {
+	if (path.value === "/auth") {
+		router.push("/");
+	} else {
+		router.push("/auth");
+	}
 };
 </script>
 
