@@ -10,6 +10,7 @@ const [major, minor, patch, label = "0"] = version
 	.split(/[.-]/);
 
 export default defineManifest(async (env) => ({
+	icons: { "16": "icon16.png", "48": "icon48.png", "128": "icon128.png" },
 	host_permissions: ["https://api.notion.com/v1/*"],
 	content_scripts: [
 		{
@@ -23,12 +24,7 @@ export default defineManifest(async (env) => ({
 	},
 	manifest_version: 3,
 	action: { default_popup: "index.html" },
-	name:
-		env.mode === "staging"
-			? "[INTERNAL] CRXJS Power Tools"
-			: "CRXJS Power Tools",
-	// up to four numbers separated by dots
+	name: "D2N",
 	version: `${major}.${minor}.${patch}.${label}`,
-	// semver is OK in "version_name"
 	version_name: version,
 }));
