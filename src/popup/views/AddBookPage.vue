@@ -22,8 +22,7 @@
 import LoadingButton from "../components/LoadingButton.vue";
 import { useRouter } from "vue-router";
 import { onMounted, ref } from "vue";
-import { sendToBackground } from "../messages";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { send } from "../../message";
 
 const router = useRouter();
 const loadingStatus = ref<boolean>(false);
@@ -37,14 +36,14 @@ onMounted(() => {
 const handleClick = () => {
 	// change loading status
 	loadingStatus.value = true;
-	sendToBackground({ storeNote: bookNote.value });
-	sendToBackground(
-		{ saveBookToNotion: true },
+	send<"storeNote">({ type: "storeNote", data: bookNote.value });
+	send<"saveBookToNotion">(
+		{ type: "saveBookToNotion" },
 		{
 			successAction: (res) => {
 				router.push({
 					path: "/open",
-					query: { data: (res as PageObjectResponse).url },
+					query: { data: res.url },
 				});
 			},
 			failedAction: (err) => {

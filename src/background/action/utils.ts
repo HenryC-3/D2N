@@ -1,6 +1,6 @@
 import { Client } from "@notionhq/client";
-import { BackgroundStore, IndexDB } from "../../types";
-import { ExtensionError } from "../../types/ExtensionError";
+import { BackgroundStore, IndexDB } from "../../types/Message";
+import { ExtensionError } from "../../types/Error";
 import { set, get } from "idb-keyval";
 
 export async function saveAuthInfo(input: IndexDB) {

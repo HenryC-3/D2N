@@ -1,20 +1,23 @@
-import { Action, BackgroundActions } from "../types/BackgroundActions";
-import { BackgroundResponse } from "../types/BackgroundResponse";
-import { ExtensionRequest } from "../types/ExtensionRequest";
+import {
+	Actions,
+	ExtensionRequest,
+	BackgroundResponse,
+} from "../types/Message";
 
-export function listenToMessage(actions: BackgroundActions) {
+export function listenToMessage(actions: Actions) {
 	chrome.runtime.onMessage.addListener(
 		(
 			messageValue: ExtensionRequest,
 			_,
-			backgroundResponse: (msg: BackgroundResponse) => void
+			backgroundResponse: (response: BackgroundResponse) => void
 		) => {
 			for (const actionKey in actions) {
-				if (messageValue[actionKey as keyof ExtensionRequest]) {
-					const data = messageValue[actionKey as keyof ExtensionRequest];
-					const action = actions[
-						actionKey as keyof BackgroundActions
-					] as Action<typeof data>;
+				if (messageValue["type"] === actionKey) {
+					const data = messageValue.data;
+					const action = actions[actionKey];
+					// TODO
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-ignore
 					action(data, backgroundResponse);
 				}
 			}

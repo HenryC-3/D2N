@@ -1,5 +1,5 @@
 import * as cheerio from "cheerio";
-import { Book } from "../../types";
+import { Book } from "../../types/Message";
 import { getInfoByAnchor } from "../utils";
 
 export function getBookInfo() {

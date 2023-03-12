@@ -1,22 +1,20 @@
-import { BackgroundResponse } from "../types/BackgroundResponse";
-import { ExtensionRequest } from "../types/ExtensionRequest";
 import { getBookInfo } from "./actions/getBookInfo";
 import { createButton } from "./actions/createButton";
-import { PageObjectResponse } from "@notionhq/client/build/src/api-endpoints";
+import { send } from "../message";
 
 export function sendBookToBackground() {
 	const book = getBookInfo();
-	chrome.runtime.sendMessage<ExtensionRequest>({ storeBook: book });
+	send<"storeBook">({ type: "storeBook", data: book });
 }
 
 export function createNotionButton() {
 	const isbn = getBookInfo().ISBN;
-	chrome.runtime.sendMessage<ExtensionRequest>(
-		{ getBookLink: isbn },
-		(res: BackgroundResponse) => {
-			if (res.data) {
-				createButton((res.data as PageObjectResponse).url);
-			}
+	send<"getBookLink">(
+		{ type: "getBookLink", data: isbn },
+		{
+			successAction: (res) => {
+				createButton(res.url);
+			},
 		}
 	);
 }
