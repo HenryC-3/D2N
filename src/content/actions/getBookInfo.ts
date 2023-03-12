@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import * as cheerio from "cheerio";
 import { Book } from "../../types/Message";
 import { getInfoByAnchor } from "../utils";
@@ -25,5 +26,19 @@ export function getBookInfo() {
 		douban: window.location.href,
 	};
 
-	return book;
+	return format(book);
+
+	function format(input: Book) {
+		Object.keys(input).forEach((key) => {
+			// @ts-ignore
+			if (typeof input[key] === "string") {
+				// @ts-ignore
+				input[key] = (input[key] as string)
+					.replaceAll(" ", "")
+					.replaceAll("\n", "");
+			}
+		});
+
+		return input;
+	}
 }
