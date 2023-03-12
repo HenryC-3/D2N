@@ -10,7 +10,7 @@
 		"prepare": "husky install"
 	},
 	"lint-staged": {
-		"*.{vue,ts,tsx,cts,mts}": "vue-tsc --noEmit",
+		"*.{vue,ts,tsx,cts,mts}": "bash -c vue-tsc --project ./tsconfig.json",
 		"*.{vue,js,jsx,cjs,mjs,ts,tsx,cts,mts}": "eslint --cache --fix",
 		"**/*": "prettier --write"
 	},
