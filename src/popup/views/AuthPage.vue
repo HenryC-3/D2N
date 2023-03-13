@@ -1,8 +1,8 @@
 <template>
 	<div class="flex flex-col gap-3 p-3 justify-center">
 		<div class="flex justify-center font-semibold text-lg">
-			<!-- show database title -->
-			<h1 v-if="databaseTitle" class="text-green-500">
+			<!-- database name as title -->
+			<h1 v-if="titleStyle === 'dbInfo'" class="text-green-500">
 				Books are stored in:
 				<a
 					@click="
@@ -15,14 +15,17 @@
 					>{{ databaseTitle }}</a
 				>
 			</h1>
-			<!-- show default title -->
-			<h1 v-else-if="!errName">
+			<!-- default name as title -->
+			<h1 v-if="titleStyle === 'default'">
 				<span class="text-green-500">D</span
 				><span class="text-[#4EAADC]">2</span><span>N </span>
 				<span class="text-[#4EAADC]">ꔛꕤ</span>
 			</h1>
-			<!-- show error name -->
-			<h1 v-else class="text-red-400 font-semibold text-lg">
+			<!-- error name in title -->
+			<h1
+				v-if="titleStyle === 'errMsg'"
+				class="text-red-400 font-semibold text-lg"
+			>
 				{{ errName }}
 			</h1>
 		</div>
@@ -31,7 +34,7 @@
 			type="text"
 			placeholder="Token Secret"
 			v-model="tokenSecret"
-			:class="{ 'border-red-300': isErr }"
+			:class="{ 'border-red-300': inputOnError }"
 			ref="tokenSecretInput"
 			class="rounded-sm bg-[#F7F7F5] text-sm border-2 p-2 focus:border-blue-300 focus:outline-none"
 		/>
@@ -40,7 +43,7 @@
 			type="text"
 			placeholder="Database ID"
 			v-model="databaseID"
-			:class="{ 'border-red-300': isErr }"
+			:class="{ 'border-red-300': inputOnError }"
 			ref="databaseIDInput"
 			class="rounded-sm bg-[#F7F7F5] text-sm border-2 p-2 focus:border-blue-300 focus:outline-none"
 		/>
@@ -72,10 +75,12 @@ const databaseIDInput = ref<HTMLInputElement | null>();
 const loadingStatus = ref(false);
 // UI: error
 const errName = ref("");
-const isErr = ref(false);
+const inputOnError = ref(false);
 // UI: configure
 const databaseTitle = ref("");
 const databaseURL = ref("");
+// UI: title
+const titleStyle = ref<"default" | "dbInfo" | "errMsg">("default");
 
 // get DB title, id, url and secret from indexDB
 onMounted(() => {
@@ -83,6 +88,8 @@ onMounted(() => {
 		{ type: "getAuthInfo" },
 		{
 			successAction: (res) => {
+				titleStyle.value = "dbInfo";
+
 				databaseID.value = res.databaseID;
 				tokenSecret.value = res.tokenSecret;
 				databaseTitle.value = res.databaseTitle;
@@ -106,13 +113,20 @@ const handleClick = () => {
 				loadingStatus.value = false;
 				router.push("/");
 			},
-			failedAction: () => {
+			failedAction: (err) => {
+				// change button style
 				loadingStatus.value = false;
+
+				// change title style
+				titleStyle.value = "errMsg";
 				errName.value = "(⑉꒦ິ^꒦ິ⑉)";
-				isErr.value = true;
+
+				// change input style
+				inputOnError.value = true;
 				setTimeout(() => {
-					isErr.value = false;
+					inputOnError.value = false;
 				}, 2000);
+
 				tokenSecretInput.value?.blur();
 				databaseIDInput.value?.blur();
 			},
