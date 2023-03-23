@@ -32,7 +32,7 @@ https://user-images.githubusercontent.com/41246463/224534553-ffad7296-e7fc-479c-
 <details>
 <summary>安装</summary>
 
-- 下载 [d2n-v0.1.0.zip](https://github.com/HenryC-3/D2N/releases/download/v0.1.0/d2n-v0.1.0.zip) 并解压
+- 前往 [下载页面](https://github.com/HenryC-3/D2N/releases)，下载最新的插件压缩包并解压 ![](docs/2023-03-23-18-19-39.png)
 - 打开浏览器插件管理页，打开 `开发者模式`，选择 `添加已解压的插件`。随后在文件管理器中选择已解压的 `d2n-v0.1.0` 文件夹
   ![](2023-03-13-12-14-14.png)
 
