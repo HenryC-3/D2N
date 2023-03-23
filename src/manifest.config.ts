@@ -26,5 +26,4 @@ export default defineManifest(async (env) => ({
 	action: { default_popup: "index.html" },
 	name: "D2N",
 	version: `${major}.${minor}.${patch}.${label}`,
-	version_name: version,
 }));
