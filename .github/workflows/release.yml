@@ -1,9 +1,6 @@
 name: Create release
 
-on:
-  push:
-    tags:
-      - "v*.*.*"
+on: [push]
 
 jobs:
   build-and-upload-to-github-release:
@@ -12,17 +9,17 @@ jobs:
       contents: write
 
     steps:
-      # setup pnpm env https://github.com/marketplace/actions/setup-pnpm#use-cache-to-reduce-installation-time
+      # setup pnpm env start https://github.com/marketplace/actions/setup-pnpm#use-cache-to-reduce-installation-time
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
-      - uses: pnpm/action-setup@v2
-        name: Install pnpm
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
           version: 7
@@ -34,30 +31,22 @@ jobs:
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - uses: actions/cache@v3
-        name: Setup pnpm cache
+      - name: Setup pnpm cache
+        uses: actions/cache@v3
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-
       - name: Install dependencies
         run: pnpm install
+      # setup pnpm env end
 
-      # build
-      - name: Build
-        run: npm run build
+      - name: Run build
+        run: npm run build # use your build command
 
-      # generate changelog https://github.com/marketplace/actions/release-changelog-builder
-      - name: Build Changelog
-        id: github_release
-        uses: mikepenz/release-changelog-builder-action@v3
+      - name: Create release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # create release with bundle and changelog
-      - uses: ncipollo/release-action@v1
-        with:
-          artifacts: "dist-zip/*.zip"
-          body: ${{steps.github_release.outputs.changelog}}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
