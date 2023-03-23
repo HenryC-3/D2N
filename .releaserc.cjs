@@ -1,4 +1,5 @@
-const zipName = "extension.zip";
+const zipName = "D2Nv${nextRelease.version}.zip";
+const zipGlob = "./D2Nv*.zip";
 
 module.exports = {
 	branches: ["master"],
@@ -31,10 +32,9 @@ module.exports = {
 		[
 			"@semantic-release/github",
 			{
-				assets: { path: `./${zipName}` },
+				assets: { path: zipGlob },
 			},
 		],
-		"@semantic-release/npm",
 		[
 			"@semantic-release/git",
 			{
