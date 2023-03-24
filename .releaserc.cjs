@@ -29,6 +29,7 @@ module.exports = {
 				target: "local",
 			},
 		],
+		["@semantic-release/npm", { npmPublish: false }],
 		[
 			"@semantic-release/github",
 			{
