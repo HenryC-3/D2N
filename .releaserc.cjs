@@ -1,5 +1,5 @@
-const zipName = "D2Nv${nextRelease.version}.zip";
-const zipGlob = "./D2Nv*.zip";
+const zipName = "Extension_v${nextRelease.version}.zip";
+const zipGlob = "./Extension_v*.zip";
 
 module.exports = {
 	branches: ["master"],
